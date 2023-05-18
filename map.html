@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Google map</title>
+    <style>
+        #map{
+            width: 100%;
+            height: 500px;
+        }
+    </style>
+    <script async  defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBy5_SjUbRXayyiYVb9QaQSlRUW6CSM5Io&callback=initMap">
+</script>
+</head>
+<body>
+    <div id="map"></div>
+
+    <script>
+        function initMap() {
+
+                // The location of Uluru
+                const cityhall = { lat:25.088692612115846, lng: 121.56787514740121 };
+                // The map, centered at Uluru
+                const map = new google.maps.Map(document.getElementById("map"), {
+                    zoom: 18,
+                    center: cityhall,
+                });
+                // The marker, positioned at Uluru
+                const img = './img/placeholder.png' ;
+                const marker = new google.maps.Marker({
+                    position: cityhall,
+                    map: map,
+                    title: "金面山",
+                    icon: img
+                });
+                const contentString = "<h3>金面山</h3><p style='padding:10;'>資訊說明</p>";
+
+                const infowindow = new google.maps.InfoWindow({
+                    content: contentString,
+                    ariaLabel: "金面山",
+
+                });
+                marker.addListener("click", () => {
+                    infowindow.open({
+                    anchor: marker,
+                    map,
+                    });
+                });
+            }
+
+            window.initMap = initMap;
+    </script>
+</body>
+</html>

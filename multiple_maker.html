@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Google map</title>
+    <style>
+        #map{
+            width: 100%;
+            height: 500px;
+        }
+    </style>
+    
+</script>
+</head>
+<body>
+    <div id="map"></div>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBy5_SjUbRXayyiYVb9QaQSlRUW6CSM5Io&callback=initMap"></script>
+    <script src="https://unpkg.com/@googlemaps/markerclusterer/dist/index.min.js"></script>
+    <script>
+
+        const location_name = ["寧夏夜市", "華山藝文特區", "中正紀念堂", "西門紅樓", "總統府"]
+
+        const locations = [
+            { lat: 25.05645132594737, lng: 121.51541210827043 }, 
+            { lat: 25.04408115744865, lng:  121.52934216091242 },
+            { lat: 25.035503455756462, lng: 121.5201750878768 },
+            { lat: 25.04201117358669, lng: 121.50686249475967 },
+            { lat: 25.039999069296442, lng: 121.51195033136108 }            
+        ];
+
+        function initMap() {
+            const NTUB = { lat: 25.048009160975795, lng: 121.51707358992799 };
+            const map = new google.maps.Map(document.getElementById("map"), {
+                zoom: 14,
+                center: NTUB
+            });
+
+            const img = "img/placeholder.png"
+            for (let i = 0; i < locations.length; i++) {
+                const marker = new google.maps.Marker({
+                    position: locations[i],
+                    map: map,
+                    title: location_name[i],
+                    icon: img
+                })
+            }
+
+            const markerCluster = new markerClusterer.MarkerClusterer({ map, markers });
+        }
+
+        initMap();
+    </script>
+</body>
+</html>
